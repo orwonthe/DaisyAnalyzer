@@ -51,26 +51,30 @@ ServoDataChannelizer::ServoDataChannelizer(const char *title, const char *label,
 
 void ServoDataChannelizer::getDescriptiveString(Frame &frame, DisplayBase display_base, char *result_string,
                                                 U32 result_string_max_length) const {
-  if (result_string_max_length > 5)
+  if (result_string_max_length > 12)
   {
     U64 data_value = extractDataValue(frame);
-    const char flags[] = "NXYZnzyx89abcdef";
-    int shift = 12;
-    while (shift >= 0) {
-      int flag_index = (data_value >> shift) & 0x0f;
-      *result_string++ = flags[flag_index];
-      shift -= 4;
-      result_string_max_length--;
+    const char command_flags[] = "NXYZnzyx89abcdef";
+    const char status_flag[] = "_s=S";
+    int command_shift = 16;
+    int status_shift = 24;
+    while (command_shift > 0) {
+      command_shift -= 4;
+      status_shift -= 2;
+      int command_flag_index = (data_value >> command_shift) & 0x0f;
+      int status_flag_index = (data_value >> status_shift) & 0x03;
+      *result_string++ = command_flags[command_flag_index]; result_string_max_length--;
+      *result_string++ = status_flag[status_flag_index]; result_string_max_length--;
+      *result_string++ = ' '; result_string_max_length--;
     }
   }
   if (display_base == Decimal)
   {
     // A bit hacky but decimal is useless in this context, so allow it to be used to see ONLY the flags.
-    *result_string++ = 0;
+    *result_string++ = 0; result_string_max_length--;
   } else {
-    *result_string++ = ' ';
     AnalyzerHelpers::GetNumberString(extractDataValue(frame), display_base, mBitsWide, result_string,
-                                     result_string_max_length - 5);
+                                     result_string_max_length);
   }
 }
 
