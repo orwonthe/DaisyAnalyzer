@@ -15,10 +15,10 @@ DaisyChannelizerManager::DaisyChannelizerManager() :
   addClockingChannelizer(&mShiftClockingChannelizer, false);
 
   // Create and add data channelizers.
-  addDataChannelizer(new DataChannelizer("ServoIn", "ServoIn", "Servo Data In", true, false, bitsPerTransfer, 0));
-  addDataChannelizer(new DataChannelizer("ServoOut", "ServoOut", "Servo Data Out", true, false, bitsPerTransfer, 32));
-  addDataChannelizer(new DataChannelizer("ConsoleIn", "ConsoleIn", "Console Data In", true, true, bitsPerTransfer, 0));
-  addDataChannelizer(new DataChannelizer("ConsoleOut", "ConsoleOut", "Console Data Out", true, true, bitsPerTransfer, 32));
+  addDataChannelizer(new ServoDataChannelizer("ServoIn", "ServoIn", "Servo Data In", true, false, bitsPerTransfer, 0));
+  addDataChannelizer(new ServoDataChannelizer("ServoOut", "ServoOut", "Servo Data Out", true, false, bitsPerTransfer, 32));
+  addDataChannelizer(new ConsoleDataChannelizer("ConsoleIn", "ConsoleIn", "Console Data In", true, true, bitsPerTransfer, 0));
+  addDataChannelizer(new ConsoleDataChannelizer("ConsoleOut", "ConsoleOut", "Console Data Out", true, true, bitsPerTransfer, 32));
 }
 
 Clocker *DaisyChannelizerManager::createLoadClocker(Analyzer2 *analyzer) {

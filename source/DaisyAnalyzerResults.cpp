@@ -23,7 +23,7 @@ void DaisyAnalyzerResults::GenerateBubbleText(U64 frame_index, Channel &channel,
 
   if ((frame.mFlags & SPI_ERROR_FLAG) == 0) {
     char number_str[128];
-    if (mChannelizerManager->getNumberString(frame, channel, display_base, number_str, 128)) {
+    if (mChannelizerManager->getDescriptiveString(frame, channel, display_base, number_str, 128)) {
       AddResultString(number_str);
     } else {
       AddResultString("Error");
@@ -71,7 +71,7 @@ void DaisyAnalyzerResults::GenerateExportFile(const char *file, DisplayBase disp
 
     for (DataChannelizer *channelizer: definedDataChannelizers) {
       char value_str[128] = "";
-      channelizer->getNumberString(frame, display_base, value_str, 128);
+      channelizer->getDescriptiveString(frame, display_base, value_str, 128);
       ss << "," << value_str;
     }
     ss << std::endl;
@@ -96,7 +96,7 @@ void DaisyAnalyzerResults::GenerateFrameTabularText(U64 frame_index, DisplayBase
     const char *delim = "";
     for (DataChannelizer *channelizer: mChannelizerManager->definedDataChannels()) {
       char value_str[128] = "";
-      channelizer->getNumberString(frame, display_base, value_str, 128);
+      channelizer->getDescriptiveString(frame, display_base, value_str, 128);
       ss << delim << channelizer->label() << ": " << value_str;
       delim = "; ";
     }

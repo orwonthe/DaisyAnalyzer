@@ -68,11 +68,11 @@ std::string MasterChannelizerManager::dataTitles(const char *delim) {
 }
 
 bool
-MasterChannelizerManager::getNumberString(Frame &frame, Channel &channel, DisplayBase display_base, char *result_string,
-                                          U32 result_string_max_length) {
+MasterChannelizerManager::getDescriptiveString(Frame &frame, Channel &channel, DisplayBase display_base, char *result_string,
+                                               U32 result_string_max_length) {
   DataChannelizer *channelizer = getDataChannelizer(channel);
   if (channelizer) {
-    channelizer->getNumberString(frame, display_base, result_string, result_string_max_length);
+    channelizer->getDescriptiveString(frame, display_base, result_string, result_string_max_length - 4);
     return true;
   } else { return false; }
 }
@@ -94,4 +94,5 @@ std::vector<DataChannelizer *> MasterChannelizerManager::definedDataChannels() {
 void MasterChannelizerManager::markDataChannelsAsBubbleWorthy(AnalyzerResults *analyzerResults) {
   mDataManager.markChannelsAsBubbleWorthy(analyzerResults);
 }
+
 

@@ -36,9 +36,8 @@ public:
   std::vector<DataChannelizer *> definedDataChannels();
 
   // Extracting results
-  bool getNumberString(Frame &frame, Channel &channel, DisplayBase display_base, char *result_string,
-                       U32 result_string_max_length);
-
+  bool getDescriptiveString(Frame &frame, Channel &channel, DisplayBase display_base, char *result_string,
+                            U32 result_string_max_length);
   // Archiving and exporting
   void loadFromArchive(SimpleArchive &archive);
   void saveToArchive(SimpleArchive &archive);
