@@ -18,7 +18,7 @@ void SignalGrabber::zero() {
 void SignalGrabber::grab() {
   mSignal <<= 1;
   mSignal &= mMask;  // Masking as we go makes debug a little clearer.
-  if (mChannelData->GetBitState() == BIT_HIGH) {
+  if (mChannelData->GetBitState() == BIT_LOW) {
     mSignal |= 1;
   }
 }
